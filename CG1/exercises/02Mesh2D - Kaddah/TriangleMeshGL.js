@@ -19,7 +19,7 @@ export class TriangleMeshGL{
         const positions     = simpleMeshIO.positions;
         const colors        = simpleMeshIO.colors;
 
-
+        // Das ist ein Test
         // Lab 02, Aufgabe 1(a)
 
         //create and bind Vertex Array to the GPU
