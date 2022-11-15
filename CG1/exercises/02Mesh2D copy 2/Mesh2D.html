@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Triangle</title>
+  <script id="vertexShader" src="./shader/mesh2d.vert.glsl" type="x-shader/x-vertex" defer></script>
+  <script id="fragmentShader" src="./shader/mesh2d.frag.glsl" type="x-shader/x-fragment" defer></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/style/cogra.css">
+  <script src="./Mesh2D.js" type="module" defer></script>
+</head>
+
+<title>Lab 02: Mesh 2D</title>
+
+<body>
+    <link rel="icon" href="../../lib/style/favicon.ico">
+    <div class="titlerow">Lab 02: Mesh 2D</div>	
+    <div class="topbar">
+      Background Color: <input type="color" id="backgroundColor" value="#FFFFFF"> &nbsp; &nbsp;
+      <br>
+      TranslateX: <input type="range" step="0.1" min="-2.00" max="2.00" value="0" id="TranslateX"> &nbsp; &nbsp;
+      TranslateY: <input type="range" step="0.1" min="-2.00" max="2.00" value="0" id="TranslateY"> &nbsp; &nbsp;
+      <br>
+      ScaleX: <input type="range" step="0.1" min="-2.00" max="2.00" value="1" id="ScaleX"> &nbsp; &nbsp;
+      ScaleY: <input type="range" step="0.1" min="-2.00" max="2.00" value="1" id="ScaleY"> &nbsp; &nbsp;
+      <br>
+      Rotation: <input type="range" step="0.1" min="0" max="6.28" value="0" id="Rotation"> &nbsp; &nbsp;
+      <br>
+    </div>
+    <canvas id="canvas" class="output" ></canvas>
+    <div class="bottombarleft">&#x24B8; 2021-2022 by Markus Hülß, M.Sc., Prof. Dr. Quirin Meyer, Coburg University of Applied Sciences and Art</div>
+    <div class="bottombarright">Computer Graphics 1</div>
+</body>
+
+</html>

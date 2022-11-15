@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Triangle</title>
+  <script id="vertexShader" src="./shader/mesh3d.vert.glsl" type="x-shader/x-vertex" defer></script>
+  <script id="fragmentShader" src="./shader/mesh3d.frag.glsl" type="x-shader/x-fragment" defer></script>
+
+
+  <link rel="stylesheet" type="text/css" href="../../lib/style/cogra.css">
+  <script src="./Mesh3D.js" type="module" defer></script>
+</head>
+
+<title>Lab 07: Mesh 3D Compute Normals</title>
+
+<body>
+    <link rel="icon" href="../../lib/style/favicon.ico">
+    <div class="titlerow">Lab 07: Mesh 3D Compute Normals</div>	
+    <div class="topbar">
+      Background Color: <input type="color" id="backgroundColor" value="#FFFFFF"> &nbsp; &nbsp;
+      <br>
+      TranslateX: <input type="range" step="0.1" min="-2.00" max="2.00" value="0" id="TranslateX" oninput="this.nextElementSibling.value = this.value"><output>0</output> &nbsp; &nbsp;
+      TranslateY: <input type="range" step="0.1" min="-2.00" max="2.00" value="0" id="TranslateY" oninput="this.nextElementSibling.value = this.value"><output>0</output> &nbsp; &nbsp;
+      TranslateZ: <input type="range" step="0.1" min="-8.00" max="2.00" value="-1.5" id="TranslateZ" oninput="this.nextElementSibling.value = this.value"><output>0</output> &nbsp; &nbsp;     
+      <br>
+      Rotation X: <input type="range" step="0.1" min="0" max="6.28" value="0" id="RotationX" oninput="this.nextElementSibling.value = this.value"><output>0</output> &nbsp; &nbsp;
+      Rotation Y: <input type="range" step="0.1" min="0" max="6.28" value="0" id="RotationY" oninput="this.nextElementSibling.value = this.value"><output>0</output> &nbsp; &nbsp;
+      Rotation Z: <input type="range" step="0.1" min="0" max="6.28" value="0" id="RotationZ" oninput="this.nextElementSibling.value = this.value"><output>0</output> &nbsp; &nbsp;
+      <br>
+      
+      Near Plane: <input type="range" step="0.1" min="0.01" max="5.0" value="0.1" id="NearPlane"    oninput="this.nextElementSibling.value = this.value"><output>0.1</output> &nbsp; &nbsp;
+      Far Plane: <input type="range" step="0.1" min="0.01" max="32.0" value="32.0" id="FarPlane"    oninput="this.nextElementSibling.value = this.value"><output>32</output> &nbsp; &nbsp;
+      Field of View: <input type="range" step="0.1" min="0.1" max="3.14" value="1" id="FieldOfView" oninput="this.nextElementSibling.value = this.value"><output>1</output> &nbsp; &nbsp;
+      <br>
+      Wire Frame Color: <input type="color" id="WireFrameColor" value="#ff000000"> &nbsp; &nbsp;
+      Use Wire Frame: <input type="checkbox" id="useWireFrame" value="checked"> &nbsp; &nbsp;
+      <br>
+      Ambient Color: <input type="color" id="AmbientColor" value="#000000"> &nbsp; &nbsp;
+      Diffuse Color: <input type="color" id="DiffuseColor" value="#ff0000"> &nbsp; &nbsp;
+      Specular Color: <input type="color" id="SpecularColor" value="#ffffff"> &nbsp; &nbsp;
+      Specular Exponent: <input type="range" step="0.1" min="0.01" max="256.0" value="64" id="SpecularExponent" oninput="this.nextElementSibling.value = this.value"><output>64</output> &nbsp; &nbsp;
+    </div>
+    <canvas id="canvas" class="output" ></canvas>
+    <div class="bottombarleft">&#x24B8; 2021 - 2022 by Markus Hülß, M.Sc., Prof. Dr. Quirin Meyer, Coburg University of Applied Sciences and Art</div>
+    <div class="bottombarright">Computer Graphics 1</div>
+</body>
+
+</html>
