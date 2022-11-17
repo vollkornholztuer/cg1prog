@@ -1,3 +1,5 @@
+// sank yu kaddah 4 sponsoring
+
 import GLSLProgram  from "./../../lib/helper/glsl-program.js";
 import { loadDataFromURL, loadBinaryDataStreamFromURL } from "./../../lib/helper/http.js";
 import { SimpleMeshModelIO } from "./../../lib/helper/simple-mesh-model-io.js"
@@ -40,42 +42,32 @@ function Mesh2DApp() {
     let gB = parseInt(backgroundColor.substr(3,2),16)/256.0;
     let bB = parseInt(backgroundColor.substr(5,2),16)/256.0;
 
-    // Lab 02, Aufgabe 3(b)
-    // TODO - parseFloat evlt?
-    var rotationMatrix = Matrix3.rotation(Number(rotation));
-    var translateMatrix = Matrix3.translation(Number(translateX), Number(translateY));
-    var scaleMatrix = Matrix3.scaling(Number(scaleX), Number(scaleY));
-    var aspect = Matrix3.aspect(mCanvas.width, mCanvas.height);
+    let rotationMatrix = Matrix3.rotation(rotation);
+    let translateMatrix = Matrix3.translation(translateX, translateY);
+    let scaleMatrix = Matrix3.scaling(scaleX, scaleY);
+    let aspectMatrix = Matrix3.aspect(mCanvas.width, mCanvas.height);
 
-    // Erst Skalierung, dann Rotation, dann translation, dann Seitenverhältnis multiplizieren - sonst bild doof
-    const transform = Matrix3.multiply(aspect, Matrix3.multiply(translateMatrix, Matrix3.multiply(rotationMatrix, scaleMatrix)));
-    const mat3_transform = mGlslProgram.getUniformLocation('mat3_transform');
-
-    // Lab 02, Aufgabe 3(c)
-
-    // Lab 02, Aufgabe 1(c)
+    let transform = Matrix3.multiply(Matrix3.multiply(Matrix3.multiply(rotationMatrix, scaleMatrix), translateMatrix), aspectMatrix);
+    let mat3_transform = mGlslProgram.getUniformLocation("mat3_transform");
+    
     gl.clearColor(rB, gB, bB, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
-  
-    // Lab 02, Aufgabe 1(b)
-    mGlslProgram.use();
-    
-    // Lab 02, Aufgabe 3(b)
-    gl.uniformMatrix3fv(mat3_transform, true, transform);
-   
-    // triangleMeshGL.draw();
-    triangleMeshGL.drawWireFrame();
 
-    requestAnimationFrame(draw);
+   mGlslProgram.use();
+   gl.uniformMatrix3fv(mat3_transform, true, transform);
+   triangleMeshGL.draw();
+
+    gl.lineWidth(1);
+
+   
+    
 
     var useWireFrame = document.getElementById("useWireFrame");
 
-
-    if (useWireFrame.checked) {
-      triangleMeshGL.drawWireFrame();
+    if(useWireFrame.checked){
+      triangleMeshGL.drawWireFrame(gl);
     }
-    
-    
+    requestAnimationFrame(draw);
   }
 
   function resize() {
@@ -93,15 +85,7 @@ function Mesh2DApp() {
 }
 
 async function main() {
-
-  var millisecondsToWait = 1;
-
-  setTimeout(function() {
-    let t = new Mesh2DApp();
-  }, millisecondsToWait)
-
+  let t = new Mesh2DApp();
 }
 
 main();
-
-
