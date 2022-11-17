@@ -65,16 +65,13 @@ function Mesh2DApp() {
     triangleMeshGL.draw();
    
     // triangleMeshGL.draw();
-    triangleMeshGL.drawWireFrame();
-
     requestAnimationFrame(draw);
 
     var useWireFrame = document.getElementById("useWireFrame");
 
-
     if (useWireFrame.checked) {
       triangleMeshGL.drawWireFrame();
-    }
+    } 
     
     
   }
