@@ -62,6 +62,7 @@ function Mesh2DApp() {
     
     // Lab 02, Aufgabe 3(b)
     gl.uniformMatrix3fv(mat3_transform, true, transform);
+    triangleMeshGL.draw();
    
     // triangleMeshGL.draw();
     triangleMeshGL.drawWireFrame();
