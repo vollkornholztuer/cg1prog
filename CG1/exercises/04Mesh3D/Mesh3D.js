@@ -61,6 +61,8 @@ function Mesh3DApp() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     
     // Lab 04, 1(a)
+    mGlslProgram.use();
+    triangleMeshGL.draw();
     // Lab 04, 1(f)
 
     requestAnimationFrame(draw);
