@@ -57,6 +57,15 @@ function Mesh3DApp() {
     let bW = parseInt(wireFrameColor.substr(5, 2), 16) / 255.0;
     // Lab 04, 1(e)
 
+    let aspectRatio = mCanvas.width > mCanvas.height ? mCanvas.width / mCanvas.height : mCanvas.height / mCanvas.width;
+ 
+    let rotationX_Matrix = Matrix4.rotationX(rotationX);
+    let rotationY_Matrix = Matrix4.rotationY(rotationY);
+    let rotationZ_Matrix = Matrix4.rotationZ(rotationZ);
+    let translationMatrix = Matrix4.translation(translateX, translateY, translateZ);
+    let perspectiveMatrix = Matrix4.perspective(fieldOfViewRadians, aspectRatio, nearPlaneDistance, farPlaneDistance);
+    let mvp = Matrix4.multiply(perspectiveMatrix, Martrix4.multiply(translationMatrix, Matrix4.multiply(rotationX_Matrix, Matrix4.multiply(rotationZ_Matrix, rotationY_Matrix))));
+
     gl.clearColor(rB, gB, bB, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     
