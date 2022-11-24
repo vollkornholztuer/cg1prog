@@ -32,13 +32,17 @@ export class TriangleMeshGL{
         gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(positionAttributeLocation);
 
-        const colorAttributeLocation = 1;
-        const cb = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, cb);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-        gl.vertexAttribPointer(colorAttributeLocation, 3, gl.FLOAT, false, 0, 0)
-        gl.enableVertexAttribArray(colorAttributeLocation); 
 
+        // 1(b) - If-Statement einfügen
+        const colorAttributeLocation = 1;
+        if(colors != null) {
+            const cb = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, cb);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+            gl.vertexAttribPointer(colorAttributeLocation, 3, gl.FLOAT, false, 0, 0)
+            gl.enableVertexAttribArray(colorAttributeLocation); 
+        }
+        
         const ib = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(triangles), gl.STATIC_DRAW);

@@ -10,14 +10,10 @@ uniform vec3 u_color;
 void main() {
 	// fragColor = vec4(v_color.xyz, 1.0);
 
-	float red = v_color.x;
-	float green = v_color.y;
-	float blue = v_color.z;
+	float red = 0.0;
+	float green = 0.0;
+	float blue = 0.0;
 
-	//Lab04, 1 (b) 
-	if(red < 0.001 && green < 0.001 && blue < 0.001) {
-		fragColor = vec4(0.0, 0.0, 0.0, 1.0);
-	} else {
-		fragColor = vec4(v_color.rgb, 1.0);
-	}
+	//Lab04, 1 (c) 
+	fragColor = vec4(v_color.rgb, 1.0);
 }
