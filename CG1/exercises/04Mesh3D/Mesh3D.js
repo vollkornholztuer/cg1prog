@@ -33,6 +33,7 @@ function Mesh3DApp() {
    */
   function draw() {
     resize();
+    // Matritzenwerte
     let translateX = parseFloat(document.getElementById("TranslateX").value);
     let translateY = parseFloat(document.getElementById("TranslateY").value);
     let translateZ = parseFloat(document.getElementById("TranslateZ").value);
@@ -45,13 +46,17 @@ function Mesh3DApp() {
     let farPlaneDistance = parseFloat(document.getElementById("FarPlane").value);
     let fieldOfViewRadians = parseFloat(document.getElementById("FieldOfView").value);
 
+    // Hintergrund Farbwerte
     let backgroundColor = document.getElementById("backgroundColor").value;
+    // Farben für den Hintergrund
     let rB = parseInt(backgroundColor.substr(1, 2), 16) / 255.0;
     let gB = parseInt(backgroundColor.substr(3, 2), 16) / 255.0;
     let bB = parseInt(backgroundColor.substr(5, 2), 16) / 255.0;
 
     let overlayWireFrame = document.getElementById("useWireFrame").checked;
+    // Wireframe Farbwerte
     let wireFrameColor = document.getElementById("WireFrameColor").value;
+    // Farben für das Wireframe
     let rW = parseInt(wireFrameColor.substr(1, 2), 16) / 255.0;
     let gW = parseInt(wireFrameColor.substr(3, 2), 16) / 255.0;
     let bW = parseInt(wireFrameColor.substr(5, 2), 16) / 255.0;
@@ -66,21 +71,46 @@ function Mesh3DApp() {
     let perspectiveMatrix = Matrix4.perspective(fieldOfViewRadians, aspectRatio, nearPlaneDistance, farPlaneDistance);
     
     let mvp = Matrix4.multiply(perspectiveMatrix, Matrix4.multiply(translationMatrix, Matrix4.multiply(rotationX_Matrix, Matrix4.multiply(rotationZ_Matrix, rotationY_Matrix))));
-    //mvp = Matrix4.multiply(perspectiveMatrix, translationMatrix);
-    
     const u_mvp = mGlslProgram.getUniformLocation('mat4_transform');
-
+    // was macht getUniformLocation
+    // wir haben JS file z.B. Mesh3D.js --> auf CPU ausgeführt
+    // und wir haben GPU --> "da leben diese Shader (mGLSLProgram: besteht aus Vertex-Shader (mesh3d.vert.glsl) und fragment-shader (mesh3d.frag.glsl)"
+    // --> Das sind Textdateien, existieren auf CPU, wird dort kompiliert und auf GPU hochgeladen
+    // dann magie, idk
 
     gl.clearColor(rB, gB, bB, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    // Wireframe Farbe setzen
+    // UniformLocation holt den Wert aus dem Fragment-shader
+    let wireFrameFarbe = mGlslProgram.getUniformLocation('u_wfColor');
+    let wireFrameBool = mGlslProgram.getUniformLocation('u_useWireframe');
     
     // Lab 04, 1(a)
+    // Shader benutzen
     mGlslProgram.use();
 
+    // Uniform3 float für Übergabe der Wireframe Farbwerte
+    gl.uniform3f(wireFrameFarbe, rW, gW, bW);
+    
     // Lab 04, 1(f)
     gl.uniformMatrix4fv(u_mvp, true, mvp);
 
+    // wireFrameBool auf False setzen
+    gl.uniform1i(wireFrameBool, 0);
+    
     triangleMeshGL.draw();
+
+    // FÜR WIREFRAME
+    // Kontrolle ob Häkchen gesetzt ist
+    // Falls ja, setze wireFrameBool auf True und zeichne Wireframe
+    if (document.getElementById("useWireFrame").checked) {
+      gl.uniform1i(wireFrameBool, 1);
+      triangleMeshGL.drawWireFrame();
+    } else {
+      gl.uniform1i(wireFrameBool, 0);
+    }
+
     
 
 
@@ -105,6 +135,7 @@ function Mesh3DApp() {
 }
 
 async function main() {
+  
   let t = new Mesh3DApp();
 }
 

@@ -28,17 +28,30 @@ function Mesh2DApp() {
   function draw() {
     resize();
 
+    // Hintergrund Farbwerte
     let backgroundColor = document.getElementById("backgroundColor").value;
 
+    // Wireframe Farbwerte
+    let wireframeColor = document.getElementById("WireFrameColor").value;
+
+    // Matritzenwerte
     let translateX = document.getElementById("TranslateX").value;
     let translateY = document.getElementById("TranslateY").value;
     let scaleX = document.getElementById("ScaleX").value;
     let scaleY = document.getElementById("ScaleY").value;
     let rotation = document.getElementById("Rotation").value;
+
     
+    // Farben für den Hintergrund
     let rB = parseInt(backgroundColor.substr(1,2),16)/256.0;
     let gB = parseInt(backgroundColor.substr(3,2),16)/256.0;
     let bB = parseInt(backgroundColor.substr(5,2),16)/256.0;
+
+    // Farben für den Wireframe
+    let rW = parseInt(wireframeColor.substr(1,2),16)/256.0;
+    let gW = parseInt(wireframeColor.substr(3,2),16)/256.0;
+    let bW = parseInt(wireframeColor.substr(5,2),16)/256.0;
+
 
     // Lab 02, Aufgabe 3(b)
     // TODO - parseFloat evlt?
@@ -56,24 +69,40 @@ function Mesh2DApp() {
     // Lab 02, Aufgabe 1(c)
     gl.clearColor(rB, gB, bB, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // Wireframefarbe setzen
+    // UniformLocation holt den Wert aus dem Fragment-shader
+    let wireFrameFarbe = mGlslProgram.getUniformLocation('u_wfColor');
+    let wireFrameBool = mGlslProgram.getUniformLocation('u_useWireframe');
+
   
     // Lab 02, Aufgabe 1(b)
+    // Shader benutzen
     mGlslProgram.use();
+
+    // Uniform3 float für Übergabe der Wireframe Farbwerte
+    gl.uniform3f(wireFrameFarbe, rW, gW, bW);
     
     // Lab 02, Aufgabe 3(b)
     gl.uniformMatrix3fv(mat3_transform, true, transform);
+
+    // wireFrameBool auf False setzen
+    gl.uniform1i(wireFrameBool, 0);
+
+    // Lab 02, Aufgabe 1(b)
     triangleMeshGL.draw();
-   
-    // triangleMeshGL.draw();
-    requestAnimationFrame(draw);
 
-    var useWireFrame = document.getElementById("useWireFrame");
-
-    if (useWireFrame.checked) {
+    // Lab 03, Aufgabe 1(b)
+    // Kontrolle ob Häkchen gesetzt ist
+    // Falls ja, setze wireFrameBool auf True und zeichne Wireframe
+    if (document.getElementById("useWireFrame").checked) {
+      gl.uniform1i(wireFrameBool, 1);
       triangleMeshGL.drawWireFrame();
-    } 
-    
-    
+    } else {
+      gl.uniform1i(wireFrameBool, 0);
+    }
+
+    requestAnimationFrame(draw);
   }
 
   function resize() {

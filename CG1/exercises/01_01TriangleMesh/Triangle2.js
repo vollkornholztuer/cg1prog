@@ -145,7 +145,7 @@ function SimpleTriangle() {
     // gl.drawElements(gl.TRIANGLE_FAN, 4, gl.UNSIGNED_INT, 0);
 
     // gl.drawArrays(gl.TRIANGLE_STRIP, 0, 6);
-    gl.drawArrays(gl.LINE_LOOP, 0, 4);
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 
     // gl.drawElements(gl.TRIANGLE, 3, gl.UNSIGNED_INT, 0);

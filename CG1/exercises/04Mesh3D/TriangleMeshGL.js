@@ -34,8 +34,8 @@ export class TriangleMeshGL{
 
 
         // 1(b) - If-Statement einfügen
-        const colorAttributeLocation = 1;
         if(colors != null) {
+            const colorAttributeLocation = 1;
             const cb = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, cb);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
@@ -47,14 +47,14 @@ export class TriangleMeshGL{
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(triangles), gl.STATIC_DRAW);
 
-        
+        // WIREFRAME
+        // Lab 03, Aufgabe 1(a)
         this.vaoWireFrame = gl.createVertexArray();
         gl.bindVertexArray(this.vaoWireFrame);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.positions);
         gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(positionAttributeLocation);
         
-        //Lab 03, Aufgabe 1(a)
         const lines = [];
         for(let i = 0; i < this.nTriangleIndices/3; i++){
             const i0 = triangles[i*3+0];
@@ -65,11 +65,9 @@ export class TriangleMeshGL{
         }
         this.nLineIndicies = lines.length;
 
-
         const lb = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, lb);
-        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(lines), gl.STATIC_DRAW);
-      
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(lines), gl.STATIC_DRAW);      
     }
 
     /**
@@ -82,10 +80,9 @@ export class TriangleMeshGL{
     }
 
     //Lab 03 Aufgabe 1
-    drawWireFrame(gl){
-        gl.bindVertexArray(this.vaoWireFrame);
-        gl.drawElements(gl.LINES, this.nLineIndicies, gl.UNSIGNED_INT, 0);
-        
+    drawWireFrame(){
+        this.gl.bindVertexArray(this.vaoWireFrame);
+        this.gl.drawElements(this.gl.LINES, this.nLineIndicies, this.gl.UNSIGNED_INT, 0);   
     }
 
     

@@ -81,9 +81,7 @@ export class TriangleMeshGL{
 
     }
 
-    /**
-     * Draws a mesh with solid.
-     */
+    // Draws a mesh with solid.
     draw()
     {
         // Lab 02, Aufgabe 1(b)
@@ -96,6 +94,4 @@ export class TriangleMeshGL{
         this.gl.bindVertexArray(this.vaoWireFrame);
         this.gl.drawElements(this.gl.LINES, this.nLineIndicies, this.gl.UNSIGNED_INT, 0);
     }
-
-    
 }
