@@ -42,9 +42,9 @@ export let Matrix4 = {
      */
     rotationY: function (angle) {
         // Lab 04, 1(d)
-        return [Math.cos(angle), 0, -Math.sin(angle),   0,
+        return [Math.cos(angle), 0, Math.sin(angle),   0,
                 0,               1, 0,                  0,
-                Math.sin(angle), 0, Math.cos(angle),    0,
+                -Math.sin(angle), 0, Math.cos(angle),    0,
                 0,               0, 0,                  1];
 
     },
@@ -126,11 +126,11 @@ export let Matrix4 = {
      */
      transpose: function (a) {
         // Lab 05, 2(d)
-        return [1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1];
+        return [a[0], a[4], a[8], a[12],
+                a[1], a[5], a[9], a[13],
+                a[2], a[6], a[10], a[14],
+                a[3], a[7], a[11], a[15]];
         
     }
 
-};
+}
