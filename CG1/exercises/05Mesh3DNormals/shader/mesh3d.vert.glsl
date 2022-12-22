@@ -18,6 +18,9 @@ out vec3 v_color;
 // Lab 02, Aufgabe 3(b)
 uniform mat4 mat4_transform;
 
+// Lab 05, Aufgabe 2f
+uniform mat4 u_mvInvT;
+
 void main() {
     // gl_Position = vec4(a_position.xyz, 1);
     // gl_Position = vec4(mat3_transform * vec3(a_position.xy, 1), 1.0); // 02/03 Mesh2D/Wireframe
