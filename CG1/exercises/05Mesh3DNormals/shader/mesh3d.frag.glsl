@@ -31,7 +31,10 @@ void main() {
 		// fragColor = vec4(fs_color.rgb, 1.0);
 
 		// Lab05, 1d
-		fragColor = vec4(abs(fs_normal).rgb, 1.0);
+		// fragColor = vec4(abs(fs_normal).rgb, 1.0);
+
+		// Lab05, 1e
+		fragColor = (vec4(abs(normalize(fs_normal)).rgb, 1.0));
 	}
 
 }

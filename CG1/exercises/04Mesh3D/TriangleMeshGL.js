@@ -28,7 +28,6 @@ export class TriangleMeshGL{
         this.positions = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.positions);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-
         gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(positionAttributeLocation);
 

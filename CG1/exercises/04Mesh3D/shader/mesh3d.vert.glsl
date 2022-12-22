@@ -16,5 +16,4 @@ void main() {
     // Lab04, 1(a)
     gl_Position = mat4_transform * vec4(a_position.xyz, 1.0); //xyz, da 3D (3er Matrix)
     v_color = abs(a_position);
-
 }
