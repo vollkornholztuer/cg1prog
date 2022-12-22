@@ -10,6 +10,9 @@ layout(location = 2) in vec3 a_normal;
 // Lab 05, 1c
 out vec3 fs_color;
 
+// Lab 05, 1d
+out vec3 fs_normal;
+
 out vec3 v_color;
 
 // Lab 02, Aufgabe 3(b)
@@ -23,4 +26,5 @@ void main() {
     gl_Position = mat4_transform * vec4(a_position.xyz, 1.0); //xyz, da 3D (3er Matrix)
     v_color = abs(a_position);
     fs_color = abs(a_normal);
+    fs_normal = a_normal;
 }

@@ -10,7 +10,10 @@ uniform bool u_useWireframe;
 uniform vec3 u_wfColor;
 
 // Normals
+// Lab 05, 1c
 in vec3 fs_color;
+// Lab 05, 1d
+in vec3 fs_normal;
 
 uniform vec3 u_color;
 
@@ -21,8 +24,14 @@ void main() {
 		fragColor = vec4(u_wfColor.rgb, 1.0);
 
 	} else {
-		//Lab04, 1 (c) 
-		fragColor = vec4(v_color.rgb, 1.0);
+		// Lab04, 1 (c) 
+		// fragColor = vec4(v_color.rgb, 1.0);
+
+		// Lab05, 1(c)
+		// fragColor = vec4(fs_color.rgb, 1.0);
+
+		// Lab05, 1d
+		fragColor = vec4(abs(fs_normal).rgb, 1.0);
 	}
 
 }
