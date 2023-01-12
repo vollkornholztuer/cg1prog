@@ -70,7 +70,10 @@ function Mesh3DApp() {
     let translationMatrix = Matrix4.translation(translateX, translateY, translateZ);
     let perspectiveMatrix = Matrix4.perspective(fieldOfViewRadians, aspectRatio, nearPlaneDistance, farPlaneDistance);
     
-    let mvp = Matrix4.multiply(perspectiveMatrix, Matrix4.multiply(translationMatrix, Matrix4.multiply(rotationX_Matrix, Matrix4.multiply(rotationZ_Matrix, rotationY_Matrix))));
+    // Lab 05, 2e
+    let mv = Matrix4.multiply(translationMatrix, Matrix4.multiply(rotationX_Matrix, Matrix4.multiply(rotationZ_Matrix, rotationY_Matrix)));
+   
+    let mvp = Matrix4.multiply(perspectiveMatrix, mv);
     const u_mvp = mGlslProgram.getUniformLocation('mat4_transform');
     // was macht getUniformLocation
     // wir haben JS file z.B. Mesh3D.js --> auf CPU ausgeführt
@@ -86,6 +89,9 @@ function Mesh3DApp() {
     let wireFrameFarbe = mGlslProgram.getUniformLocation('u_wfColor');
     let wireFrameBool = mGlslProgram.getUniformLocation('u_useWireframe');
     
+    // Lab 05, 2e+f
+    const u_mv = mGlslProgram.getUniformLocation('u_mv');
+
     // Lab 04, 1(a)
     // Shader benutzen
     mGlslProgram.use();
@@ -95,6 +101,9 @@ function Mesh3DApp() {
     
     // Lab 04, 1(f)
     gl.uniformMatrix4fv(u_mvp, true, mvp);
+
+    // Lab 05, 2f 
+    gl.uniformMatrix4fv(u_mv, true, mv);
 
     // wireFrameBool auf False setzen
     gl.uniform1i(wireFrameBool, 0);
