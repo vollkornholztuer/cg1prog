@@ -73,8 +73,8 @@ function Mesh3DApp() {
     // Lab 05, 2e
     let mv = Matrix4.multiply(translationMatrix, Matrix4.multiply(rotationX_Matrix, Matrix4.multiply(rotationZ_Matrix, rotationY_Matrix)));
    
-    let mvInvT = Matrix4.multiply(perspectiveMatrix, mv);
-    const u_mvInvTp = mGlslProgram.getUniformLocation('mat4_transform');
+    let mvp = Matrix4.multiply(perspectiveMatrix, mv);
+    const u_mvp = mGlslProgram.getUniformLocation('mat4_transform');
     // was macht getUniformLocation
     // wir haben JS file z.B. Mesh3D.js --> auf CPU ausgeführt
     // und wir haben GPU --> "da leben diese Shader (mGLSLProgram: besteht aus Vertex-Shader (mesh3d.vert.glsl) und fragment-shader (mesh3d.frag.glsl)"
@@ -90,7 +90,7 @@ function Mesh3DApp() {
     let wireFrameBool = mGlslProgram.getUniformLocation('u_useWireframe');
     
     // Lab 05, 2e+f
-    const u_mvInvT = mGlslProgram.getUniformLocation('u_mvInvT');
+    const u_mv = mGlslProgram.getUniformLocation('u_mv');
 
     // Lab 04, 1(a)
     // Shader benutzen
@@ -100,10 +100,10 @@ function Mesh3DApp() {
     gl.uniform3f(wireFrameFarbe, rW, gW, bW);
     
     // Lab 04, 1(f)
-    gl.uniformMatrix4fv(u_mvInvTp, true, mvInvTp);
+    gl.uniformMatrix4fv(u_mvp, true, mvp);
 
     // Lab 05, 2f 
-    gl.uniformMatrix4fv(u_mvInvT, true, mvInvT);
+    gl.uniformMatrix4fv(u_mv, true, mv);
 
     // wireFrameBool auf False setzen
     gl.uniform1i(wireFrameBool, 0);
